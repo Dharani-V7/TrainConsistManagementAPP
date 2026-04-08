@@ -5,33 +5,18 @@ public class TrainConsistManagementApp {
 
         System.out.println("=== Train Consist Management App ===");
 
-        LinkedList<String> train = new LinkedList<>();
+        LinkedHashSet<String> train = new LinkedHashSet<>();
 
         // Adding bogies
         train.add("Engine");
         train.add("Sleeper");
-        train.add("AC");
         train.add("Cargo");
         train.add("Guard");
 
-        System.out.println("Initial Train Consist:");
-        System.out.println(train);
+        // Attempt duplicate
+        train.add("Sleeper");
 
-        // Insert Pantry Car at position 2
-        train.add(2, "Pantry");
-
-        System.out.println("After adding Pantry Car at position 2:");
-        System.out.println(train);
-
-        // Remove first and last
-        train.removeFirst();
-        train.removeLast();
-
-        System.out.println("After removing first and last bogies:");
-        System.out.println(train);
-
-        // Final state
-        System.out.println("Final Train Consist:");
+        System.out.println("Final Train Formation:");
         System.out.println(train);
     }
 }
