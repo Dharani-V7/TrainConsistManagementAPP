@@ -11,7 +11,7 @@ class Bogie {
     }
 
     public String toString() {
-        return name + "(" + capacity + ")";
+        return name + " -> " + capacity;
     }
 }
 
@@ -22,22 +22,16 @@ public class TrainConsistManagementApp {
 
         List<Bogie> bogies = new ArrayList<>();
 
-        // Adding bogies (including duplicates for grouping)
         bogies.add(new Bogie("Sleeper", 72));
         bogies.add(new Bogie("AC Chair", 54));
-        bogies.add(new Bogie("Sleeper", 72));
         bogies.add(new Bogie("First Class", 24));
-        bogies.add(new Bogie("AC Chair", 54));
 
-        // ✅ Grouping by bogie name
-        Map<String, List<Bogie>> grouped = bogies.stream()
-                .collect(Collectors.groupingBy(b -> b.name));
+        // ✅ Step 1: map capacity
+        // ✅ Step 2: reduce to sum
+        int totalSeats = bogies.stream()
+                .map(b -> b.capacity)
+                .reduce(0, Integer::sum);
 
-        System.out.println("Grouped Bogies:");
-
-        // Printing grouped result
-        for (Map.Entry<String, List<Bogie>> entry : grouped.entrySet()) {
-            System.out.println(entry.getKey() + " -> " + entry.getValue());
-        }
+        System.out.println("Total Seating Capacity: " + totalSeats);
     }
 }
