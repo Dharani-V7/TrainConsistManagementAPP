@@ -1,37 +1,46 @@
-import java.util.*;
-import java.util.stream.*;
+import java.util.Scanner;
+import java.util.regex.*;
 
-class Bogie {
-    String name;
-    int capacity;
+class TrainValidator {
 
-    Bogie(String name, int capacity) {
-        this.name = name;
-        this.capacity = capacity;
+    public static boolean validateTrainID(String trainID) {
+        String regex = "TRN-\\d{4}";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(trainID);
+        return matcher.matches();
     }
 
-    public String toString() {
-        return name + " -> " + capacity;
+    public static boolean validateCargoCode(String cargoCode) {
+        String regex = "PET-[A-Z]{2}";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(cargoCode);
+        return matcher.matches();
     }
 }
 
 public class TrainConsistManagementApp {
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
 
-        System.out.println("=== Train Consist Management App ===");
+        System.out.print("Enter Train ID: ");
+        String trainID = sc.nextLine();
 
-        List<Bogie> bogies = new ArrayList<>();
+        System.out.print("Enter Cargo Code: ");
+        String cargoCode = sc.nextLine();
 
-        bogies.add(new Bogie("Sleeper", 72));
-        bogies.add(new Bogie("AC Chair", 54));
-        bogies.add(new Bogie("First Class", 24));
+        boolean isTrainValid = TrainValidator.validateTrainID(trainID);
+        boolean isCargoValid = TrainValidator.validateCargoCode(cargoCode);
 
-        // ✅ Step 1: map capacity
-        // ✅ Step 2: reduce to sum
-        int totalSeats = bogies.stream()
-                .map(b -> b.capacity)
-                .reduce(0, Integer::sum);
+        if (isTrainValid) {
+            System.out.println("Train ID is VALID");
+        } else {
+            System.out.println("Train ID is INVALID");
+        }
 
-        System.out.println("Total Seating Capacity: " + totalSeats);
+        if (isCargoValid) {
+            System.out.println("Cargo Code is VALID");
+        } else {
+            System.out.println("Cargo Code is INVALID");
+        }
     }
 }
