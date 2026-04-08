@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.stream.*;
 
 class Bogie {
     String name;
@@ -19,19 +20,20 @@ public class TrainConsistManagementApp {
 
         System.out.println("=== Train Consist Management App ===");
 
-        // ✅ MUST use generics (this fixes your error)
         List<Bogie> bogies = new ArrayList<>();
 
         bogies.add(new Bogie("Sleeper", 72));
         bogies.add(new Bogie("AC Chair", 54));
         bogies.add(new Bogie("First Class", 24));
 
-        // ✅ Sorting by capacity (descending)
-        bogies.sort(Comparator.comparingInt((Bogie b) -> b.capacity).reversed());
+        // ✅ Stream filtering (capacity > 60)
+        List<Bogie> filtered = bogies.stream()
+                .filter(b -> b.capacity > 60)
+                .toList();
 
-        System.out.println("Bogies sorted by capacity:");
+        System.out.println("Filtered Bogies (capacity > 60):");
 
-        for (Bogie b : bogies) {
+        for (Bogie b : filtered) {
             System.out.println(b);
         }
     }
